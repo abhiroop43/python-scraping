@@ -1,3 +1,4 @@
+# sudo apt-get install chromium-chromedriver
 # install the following packages before running this script #
 # pip install gitpython schedule pandas beautifulsoup4 selenium
 
@@ -9,7 +10,7 @@ import datetime
 from git import Repo
 
 # make sure .git folder is properly configured
-PATH_OF_GIT_REPO = 'F:\\Projects\\abhiroop43.github.io\\.git'
+PATH_OF_GIT_REPO = '/home/abhiroop43/abhiroop43.github.io/.git'
 COMMIT_MESSAGE = 'commit from python script'
 
 
@@ -26,8 +27,8 @@ class CoronaScraper:
             origin.push()
             start = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
             print('Updating the repo completed at: ' + start)
-        except:
-            print('Some error occured while pushing the code')
+        except Exception as e:
+            print('Some error occured while pushing the code: ' + e)
 
     def scrapeForCorona(self):
 
@@ -40,7 +41,7 @@ class CoronaScraper:
             chrome_options.add_argument('--no-sandbox')
             chrome_options.add_argument('--disable-dev-shm-usage')
             driver = webdriver.Chrome(
-                "F:\Projects\scrape\chromedriver.exe", options=chrome_options)
+                "/usr/bin/chromedriver", options=chrome_options)
 
             country_list = []
             total_cases_list = []
@@ -119,7 +120,7 @@ class CoronaScraper:
                  'activeCases': active_cases_list, 'seriousCritical': serious_critical_list, 'totalCasesPerMillion': cases_1M_pop_list,
                  'deathsPerMillion': deaths_1M_pop_list, 'totalTests': total_tests_list, 'testsPerMillion': tests_1M_pop_list})
 
-            df.to_json('F:\Projects\\abhiroop43.github.io\scrape\corona_today.json',
+            df.to_json('/home/abhiroop43/abhiroop43.github.io/scrape/corona_today.json',
                        orient='records', indent=4)
             # df.to_csv('corona_today.csv', index=False, encoding='utf-8')
             start = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
