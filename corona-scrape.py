@@ -26,8 +26,8 @@ class CoronaScraper:
             origin.push()
             start = datetime.datetime.now().strftime("%d/%m/%Y, %H:%M:%S")
             print('Updating the repo completed at: ' + start)
-        except:
-            print('Some error occured while pushing the code')
+        except Exception as e:
+            print('Some error occured while pushing the code: ' + e.args[0])
 
     def scrapeForCorona(self):
 
@@ -126,7 +126,7 @@ class CoronaScraper:
             print('Completed scrape at: ' + start)
             self.git_push()
         except Exception as e:
-            print('Failed to scrape data: ' + e)
+            print('Failed to scrape data: ' + e.args[0])
             # raise
 
 
